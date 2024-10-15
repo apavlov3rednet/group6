@@ -3,18 +3,18 @@
 namespace Core\Main;
 
 class Settings {
-    protected $arSettings;
+    private $arSettings;
 
     public function __construct() {
-        self::$arSettings = require_once('../../.settings.php');
+        $this->arSettings = require_once($_SERVER['DOCUMENT_ROOT'] . '/core/.settings.php');
     }
 
     /** <p>Получение настроек подключения к БД</p>
      * @param string $dbname - по умолчанию 'default'
      * @return mixed
      */
-    static public function getDbConnection(string $dbname = 'default') : mixed
+    public function getDbConnection(string $dbname = 'default') : mixed
     {
-        return self::$arSettings['connections']['value'][$dbname];
+        return $this->arSettings['connections']['value'][$dbname];
     }
 }

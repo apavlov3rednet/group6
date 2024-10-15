@@ -1,3 +1,10 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/core/modules/main/Settings.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/core/modules/db/Basic.php');
+
+use \Core\DB\Basic;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +13,17 @@
     <title>Document</title>
 </head>
 <body>
-    Привет
+    <?php
+    $result = new Basic();
 
-    @alexxhub
+    $arResult = $result->getList('users', [
+        'select' => ['LOGIN'],
+        'limit' => ['rows' => 2]
+    ]);
+    ?>
+
+    <pre>
+        <?print_r($arResult)?>
+    </pre>
 </body>
 </html>
