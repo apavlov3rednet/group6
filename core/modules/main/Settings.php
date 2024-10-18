@@ -15,6 +15,7 @@ class Settings {
      */
     public function getDbConnection(string $dbname = 'default')
     {
-        return $this->arSettings['connections']['value'][$dbname];
+        if(is_array($this->arSettings['connections']['value'][$dbname]))
+            return $this->arSettings['connections']['value'][$dbname];
     }
 }
