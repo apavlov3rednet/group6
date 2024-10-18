@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Main;
+namespace Main;
 
 class Settings {
     private $arSettings;
@@ -13,7 +13,7 @@ class Settings {
      * @param string $dbname - по умолчанию 'default'
      * @return mixed
      */
-    public function getDbConnection(string $dbname = 'default') : mixed
+    public function getDbConnection(string $dbname = 'default')
     {
         return $this->arSettings['connections']['value'][$dbname];
     }

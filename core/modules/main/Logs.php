@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Main;
+namespace Main;
 
 define('CONST_LOG_FILE', $_SERVER['DOCUMENT_ROOT'] . '/core/logs.log');
 
