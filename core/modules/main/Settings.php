@@ -6,7 +6,7 @@ class Settings {
     private $arSettings;
 
     public function __construct() {
-        $this->arSettings = require_once($_SERVER['DOCUMENT_ROOT'] . '/core/.settings.php');
+        $this->arSettings = require($_SERVER['DOCUMENT_ROOT'] . '/core/.settings.php');
     }
 
     /** <p>Получение настроек подключения к БД</p>
@@ -18,4 +18,8 @@ class Settings {
         if(is_array($this->arSettings['connections']['value'][$dbname]))
             return $this->arSettings['connections']['value'][$dbname];
     }
+
+    public function getCacheParams() {
+        return $this->arSettings['cache_flags'];
+    } 
 }
