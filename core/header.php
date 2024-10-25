@@ -4,7 +4,6 @@ require_once __DIR__ . '/autoloader.php';
 use Main\Basic;
 
 $curPage = Basic::getCurPage();
-$attrs = Basic::getPageAttributes($curPage);
 ?>
 
 <!DOCTYPE html>
@@ -17,5 +16,3 @@ $attrs = Basic::getPageAttributes($curPage);
     <meta name="description" content="<?=$attrs['DESCRIPTION']?>">
 </head>
 <body>
-<pre><?print_r($curPage)?></pre>
-<pre><?print_r($attrs)?></pre>

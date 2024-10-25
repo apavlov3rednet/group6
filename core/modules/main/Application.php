@@ -29,6 +29,9 @@ class Application {
      */
     static public function includeComponent(string $name, string $template = '', array $parameters = []) {
         //Подготовка основного пути до компонента
+        $arResult = [];
+        $arParams = [];
+        
         if(!$name)
             throw new Exception("template name must be announced");
             
@@ -50,9 +53,13 @@ class Application {
             $arParams = require $templatePath . '/.parameters.php';
         }
 
+        $arParams = array_merge($arParams, $parameters);
+
         //Подключаем дополнительные функции к компоненту
         if(file_exists($componentPath . '/component.php')) {
             require $componentPath . '/component.php';
         }
+
+        unset($arResult, $arParams, $templatePath, $componentPath);
     }
 }

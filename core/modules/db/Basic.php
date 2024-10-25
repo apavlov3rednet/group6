@@ -258,4 +258,12 @@ class Basic
             return false;
         }
     }
+
+    public function getCount(string $table) {
+        $ob = $this->getList($table, [
+            'select' => ['ID']
+        ]);
+
+        return count($ob);
+    }
 }

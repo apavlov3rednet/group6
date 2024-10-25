@@ -1,22 +1,19 @@
 <?php
+
+use Main\Application;
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/core/header.php');
-
-use \DB\Basic;
 ?>
 
+<?php Application::includeComponent('news.list', 'default', [
+    'TABLE_NAME' => 'users'
+])?>
 
-<?php
-$result = new Basic();
+<?php Application::includeComponent('news.detail', 'default', [
+    'TABLE_NAME' => 'users',
+    'ELEMENT_ID' => 2
+])?>
 
-$arResult = $result->getList('users', [
-    'select' => ['LOGIN'],
-    'limit' => ['rows' => 2]
-]);
-?>
-
-<pre>
-        <? print_r($arResult) ?>
-    </pre>
 
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/core/footer.php');

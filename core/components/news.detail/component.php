@@ -35,19 +35,12 @@ $cache_flags = $settings->getCacheParams();
 $arParams['CACHE_TIME'] = (isset($arParams['CACHE_TIME'])) ? $arParams['CACHE_TIME'] : $cache_flags['value']['config_options'];
 $arParams['CACHE_ACTIVE'] = (isset($arParams['CACHE_ACTIVE'])) ? $arParams['CACHE_ACTIVE'] : 'N';
 $arParams['TABLE_NAME'] = (isset($arParams['TABLE_NAME'])) ? $arParams['TABLE_NAME'] : 'news';
-$arParams['COUNT_ELEMENTS'] = (isset($arParams['COUNT_ELEMENTS'])) ? $arParams['COUNT_ELEMENTS'] : 20;
 $arParams['QUERY_PARAMS'] = (isset($arParams['QUERY_PARAMS'])) ? $arParams['QUERY_PARAMS'] : [];
-
-//Текущая страница и стартовая позиция запроса
-$offset = 0;
-if(isset($_GET['page']) && (int)$_GET['page'] > 1) {
-    $offset = (int)$_GET['page'] * (int)$arParams['COUNT_ELEMENTS'] - (int)$arParams['COUNT_ELEMENTS'];
-}
 
 $currentPage = Application::getCurPage();
 
 $nameCacheFile = md5($currentPage) . '.html';
-$directory = $cache_flags['value']['cache_position'] . 'components/news.list/';
+$directory = $cache_flags['value']['cache_position'] . 'components/news.detail/';
 $cacheFile = $directory . $nameCacheFile;
 
 if(!is_dir($directory)) {
@@ -67,22 +60,8 @@ if(file_exists($cacheFile) && $arParams['CACHE_ACTIVE'] === 'Y') {
 //Стартуем создание кеша
 ob_start();
 
-$params = [
-    'limit' => [
-        'rows' => $arParams['COUNT_ELEMENTS'],
-        'offset' => $offset
-    ]
-];
-
 $ob = new Basic();
-$arItems = $ob->getList($arParams['TABLE_NAME'], $params);
-
-$arResult['ITEMS'] = $arItems;
-
-if($arParams['SHOW_PAGER'] === 'Y') {
-    $count = $ob->getCount($arParams['TABLE_NAME']);
-    $arResult['COUNT_PAGE'] = round($count / $arParams['COUNT_ELEMENTS']);
-}
+$arResult = $ob->getById($arParams['TABLE_NAME'], $arParams['ELEMENT_ID'])[0];
 
 if(file_exists($templatePath . '/result_modifer.php')) {
     require $templatePath . '/result_modifer.php';
